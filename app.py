@@ -8,8 +8,8 @@ users = {}
 inventory = {}
 
 @app.route('/')
-def welcome():
-    return render_template('register.html')
+def home():
+    return render_template('home.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -149,6 +149,7 @@ def edit_item(username, item_index):
 
 @app.route('/logout')
 def logout():
-    return redirect(url_for('login'))
+    flash("Logged out successfully", "danger")  # Logout message
+    return redirect(url_for('home'))
 
 app.run(debug=True, use_reloader=True)
