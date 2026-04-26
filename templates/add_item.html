@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item - Home Inventory Tracker</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f5efe6, #e3d5c9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            color: #5a4a38;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            font-size: 45px;
+        }
+
+        .wlc {
+            color: #5a4a38;
+            font-size: 28px;
+            margin-top: 5px;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #ab76399a;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #a0794ddf;
+        }
+
+        .logout-btn {
+            padding: 10px;
+            background-color: rgb(206, 2, 2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background-color: red;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px auto;
+            width: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .close-btn {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            cursor: pointer;
+            background: none;
+            border: none;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Home Inventory Tracker</h1>
+    <p class="wlc">Welcome, {{ username }}!</p>
+
+    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    <i class="fa-solid fa-circle-check"></i> {{ message }}
+                    <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="form-container">
+        <h2>Add New Item</h2>
+        <form action="{{ url_for('add_item', username=username) }}" method="POST">
+            <input type="text" name="item_name" placeholder="Item Name" required>
+            <input type="date" name="purchase_date" required>
+            <input type="text" name="condition" placeholder="Condition" required>
+            <input type="text" name="location" placeholder="Location" required>
+            <input type="number" name="service_contact" placeholder="Service Contact (e.g., 1234567890)" required>
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+</body>
+
+</html>

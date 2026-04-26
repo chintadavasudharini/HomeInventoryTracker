@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Home Inventory Tracker</title>
+    <style>
+        
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url("{{ url_for('static', filename='home2.png') }}") no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #5a4a38;
+    margin: 20px 0;
+    margin-top: 48px;
+    font-size: 45px;
+}
+
+h2 {
+    color: #5a4a38;
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 5px;
+    font-size: 28px;
+}
+
+
+.form-container {
+    max-width: 600px;
+    margin-top: 23px;
+    margin-bottom: 25px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#register-form {
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 18px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 90%;
+}
+
+button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #b89c7d;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #9c8368;
+}
+
+#message {
+    text-align: center;
+    font-weight: bold;
+}
+    </style>
+    
+</head>
+
+<body>
+
+    <h1>Home Inventory Tracker</h1>
+
+    <div class="form-container">
+        <h2>Register</h2>
+
+        <form id="registerForm" action="{{ url_for('register') }}" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirm_password" required>
+
+            <p id="message"></p>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
+
+    <script>
+    
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const message = document.getElementById('message');
+
+            if (password !== confirmPassword) {
+                event.preventDefault(); 
+                message.textContent = "Passwords do not match!";
+                message.style.color = 'red';
+            } else {
+                event.preventDefault();  
+                message.textContent = "Processing..."; 
+                message.style.color = 'orange';
+
+            
+                setTimeout(function () {
+                    
+                    message.textContent = "Registration successful!";  
+                    message.style.color = 'green';
+
+                    
+                    setTimeout(function () {
+                        document.getElementById('registerForm').submit();  
+                    }, 1000); 
+                }, 0); 
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

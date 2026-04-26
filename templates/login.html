@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Home Inventory Tracker</title>
+    <style>
+    
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("{{ url_for('static', filename='home2.png') }}") no-repeat center center fixed;
+            background-size: cover;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #5a4a38;
+            margin: 20px 0;
+            margin-top: 48px;
+            font-size: 45px;
+        }
+
+        h2 {
+            color: #5a4a38;
+            text-align: center;
+            margin-bottom: 25px;
+            margin-top: 5px;
+            font-size: 28px;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 60px auto;
+            margin-top: 42px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 90%;
+        }
+
+        button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background: #b89c7d;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #9c8368;
+        }
+
+        #message {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Home Inventory Tracker</h1>
+   
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm" action="{{ url_for('login') }}" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <p id="message"></p>
+
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+    </div>
+
+    <script>       
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+            if (username === "" || password === "") {
+                event.preventDefault();
+                message.textContent = "Please fill in all fields!";
+                message.style.color = 'red';
+            } else {
+                event.preventDefault(); 
+                message.textContent = "Logging in..."; 
+                message.style.color = 'green';           
+                setTimeout(function () {                  
+                    document.getElementById('loginForm').submit();
+                }, 800);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
