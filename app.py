@@ -164,4 +164,5 @@ def logout():
     flash('Logged out successfully', 'danger')
     return redirect(url_for('home'))
 
-app.run(debug=True, use_reloader=True)
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=True)
