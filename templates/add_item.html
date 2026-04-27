@@ -84,13 +84,28 @@
         }
 
         .alert {
-            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
             border-radius: 5px;
             margin: 10px auto;
-            width: 50%;
+            width: auto;
+            max-width: 90%;
             font-size: 16px;
+            gap: 10px;
             font-weight: bold;
             position: relative;
+            text-align: center;
+        }
+
+        .alert-icon {
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+
+        .alert-text {
+            flex: 1;
         }
 
         .alert-success {
@@ -105,20 +120,26 @@
             border: 1px solid #f5c6cb;
         }
 
-        .close-btn {
-            font-size: 20px;
-            font-weight: bold;
-            color: #000;
-            cursor: pointer;
-            background: none;
-            border: none;
-            position: absolute;
-            right: 10px;
-            top: 5px;
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
 
-        .close-btn:hover {
-            color: red;
+        .alert-error {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: inherit;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
         }
     </style>
 </head>
@@ -134,7 +155,10 @@
         {% if messages %}
             {% for category, message in messages %}
                 <div class="alert alert-{{ category }}">
-                    <i class="fa-solid fa-circle-check"></i> {{ message }}
+                    <span class="alert-icon">
+                        {% if category == 'success' %}✅{% elif category == 'danger' %}❌{% elif category == 'info' %}ℹ️{% elif category == 'error' %}⚠️{% else %}ℹ️{% endif %}
+                    </span>
+                    <span class="alert-text">{{ message }}</span>
                     <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
                 </div>
             {% endfor %}
