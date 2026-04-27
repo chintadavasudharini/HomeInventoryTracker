@@ -8,6 +8,7 @@
 A production-ready Flask web application that enables users to securely manage and track household inventory through an intuitive, interactive dashboard.
 
 🔗 **Live Demo:** https://homeinventorytracker-t7if.onrender.com/
+
 🔗 **Source Code:** https://github.com/chintadavasudharini/HomeInventoryTracker
 
 ---
