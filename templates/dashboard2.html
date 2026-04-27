@@ -217,7 +217,7 @@
         function confirmDelete(username, itemIndex) {
             let confirmAction = confirm("Are you sure you want to delete this item?");
             if (confirmAction) {
-                window.location.href = /delete_item/${username}/${itemIndex};
+                window.location.href = `/delete_item/${username}/${itemIndex}`;
             }
         }
     </script>
